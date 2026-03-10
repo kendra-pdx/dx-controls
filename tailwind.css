@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@source "src/**/*.{rs,css}";
+
+div {
+    @apply flex;
+}
+
+body {
+    @apply w-dvw h-svh flex;
+}
+
+#main {
+    @apply w-full h-full flex;
+}

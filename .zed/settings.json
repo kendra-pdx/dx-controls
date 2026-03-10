@@ -1,0 +1,16 @@
+{
+  "languages": {
+    "CSS": {
+      "language_servers": ["tailwindcss"],
+    },
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "cargo": {
+          // "features": ["native"],
+        },
+      },
+    },
+  },
+}

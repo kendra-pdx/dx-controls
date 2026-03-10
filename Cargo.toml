@@ -1,0 +1,16 @@
+[package]
+name = "dx-forms"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy_color = { version = "0.18" }
+derive_more = { version = "2.1", features = ["full"] }
+derive-new = { version = "0.7" }
+dioxus = { version = "0.7", features = [] }
+fairy-effect = { path = "../fairy-effect/", features = ["std"] }
+glam = { version = "0.32" }
+
+[features]
+default = ["desktop"]
+desktop = ["dioxus/desktop"]
