@@ -1714,6 +1714,7 @@ dependencies = [
  "dioxus",
  "fairy-effect",
  "glam 0.32.1",
+ "itertools",
 ]
 
 [[package]]

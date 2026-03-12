@@ -23,9 +23,7 @@ fn App() -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
         div { class: "w-full flex-col m-4 border rounded",
-            Stops {
-                stops
-            }
+            Stops { stops }
         }
     }
 }

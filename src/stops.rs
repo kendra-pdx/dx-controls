@@ -4,8 +4,10 @@ use bevy_color::Color;
 use derive_new::new;
 use dioxus::prelude::*;
 use glam::Vec2;
+use itertools::Itertools;
 
 pub trait StopValue: Clone {
+    fn new() -> Self;
     fn edit(&self, on_change: Callback<Self>) -> Element;
     fn as_color(&self) -> Color;
 }
@@ -21,6 +23,19 @@ impl<Lens, V: StopValue + 'static> Store<Stop<V>, Lens> {
     fn can_drag(&self) -> bool {
         let at = self.at()();
         at > 0.0 && at < 1.0
+    }
+}
+
+#[store]
+impl<Lens, V: StopValue + 'static> Store<Vec<Stop<V>>, Lens> {
+    fn create_at(&mut self, at: f32) {
+        let position = self.iter().find_position(|si| at < si.at()());
+        if let Some((ix, _)) = position {
+            let ix = ix;
+            info!(at, ix, "creating stop");
+            let stop = Stop::new(at, V::new());
+            self.insert(ix, stop);
+        }
     }
 }
 
@@ -40,6 +55,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
             *size.write() = Vec2::new(w, height())
         }
     });
+
     let view_box =
         use_memo(move || format!("{} {} {} {}", -h_width(), -h_height(), width(), height()));
 
@@ -47,13 +63,12 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
 
     let mut dragging = use_signal(move || None::<usize>);
     let mouse_move = use_callback(move |e: Event<MouseData>| {
-        if let Some(stop_ix) = dragging() {
+        if let Some(stop_ix) = dragging()
+            && let Some(mut stop) = stops.get_mut(stop_ix)
+        {
             let x_pos = e.data.element_coordinates().to_f32().x;
             let at = x_pos / width();
-            // debug!(?e, stop_ix, x_pos, at, "dragging");
-            if let Some(mut stop) = stops.get_mut(stop_ix) {
-                stop.at = at;
-            }
+            stop.at = at;
         }
     });
 
@@ -75,11 +90,10 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
         }
     };
 
-    let editor: Option<Element> = selected().and_then(|ix| stops.get(ix)).map(|stop| {
-        let on_change = use_callback(move |v: V| {
-            stop.value().set(v);
+    let on_change = use_callback(move |v| {
+        selected().and_then(|ix| stops.get_mut(ix)).map(|mut stop| {
+            stop.value = v;
         });
-        stop.value()().edit(on_change)
     });
 
     let bg_style = use_memo(move || {
@@ -90,26 +104,68 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
                 let color = s.value()().as_color().to_srgba().to_hex();
                 format!("{color} {at}%")
             })
-            .collect::<Vec<_>>()
             .join(", ");
         let gradient = format!("linear-gradient(to right, {segments})");
         format!("background: {gradient}")
     });
 
+    let editor: Option<Element> = selected()
+        .and_then(|ix| stops.get(ix))
+        .map(|stop| stop.value()().edit(on_change));
+
+    let remove_selected = use_callback(move |_| {
+        if let Some(ix) = selected() {
+            info!(ix, "removing stop at index");
+            stops.remove(ix);
+            selected.set(None);
+        }
+    });
+
+    let create_stop = use_callback(move |e: Event<MouseData>| {
+        if dragging().is_none() {
+            let x_pos = e.data.element_coordinates().to_f32().x;
+            let at = x_pos / width();
+
+            info!(at, "create a new stop at mouse x");
+            stops.create_at(at);
+        }
+    });
+
     rsx! {
-        div { class: "p-4 flex flex-col gap-2",
-            svg { view_box, class: "w-full border rounded border-gray-400",  style: "{bg_style}", preserve_aspect_ratio: "xMidYMid slice",
-                onresize: on_resize, onmousemove: mouse_move, onmouseup: stop_dragging,
+        div { class: "p-4 flex-col gap-2",
+            svg {
+                view_box,
+                class: "w-full border rounded border-gray-400",
+                style: "{bg_style}",
+                preserve_aspect_ratio: "xMidYMid slice",
+                onresize: on_resize,
+                onmousemove: mouse_move,
+                onmouseup: stop_dragging,
+                onmousedown: create_stop,
                 line { class: "stroke-gray-300", x1: -h_width(), x2: h_width() }
-                for (i, stop) in stops.iter().enumerate() {
-                    StopHandle { at: stop.at(), x_range,
+                for (i , stop) in stops.iter().enumerate() {
+                    StopHandle {
+                        at: stop.at(),
+                        x_range,
                         on_dragging: start_dragging_for(i),
-                        on_select: select_for(i)
+                        on_select: select_for(i),
                     }
                 }
             }
-            {editor}
-       }
+            {
+                editor
+                    .map(|editor| {
+                        rsx! {
+                            div { class: "flex-row gap-2",
+                                div {
+                                    button { onclick: remove_selected, "remove" }
+                                }
+                                {editor}
+                            }
+                        }
+                    })
+            }
+        }
     }
 }
 
@@ -122,14 +178,22 @@ fn StopHandle(
 ) -> Element {
     let cx = (at() * (x_range().end - x_range().start)) + x_range().start;
     rsx! {
-        circle { fill: "black", r: 6, cx, cy: 0,
+        circle {
+            fill: "black",
+            r: 6,
+            cx,
+            cy: 0,
             onmousedown: move |_| on_dragging(()),
-            onclick: move |_| on_select(())
+            onclick: move |_| on_select(()),
         }
     }
 }
 
 impl StopValue for f32 {
+    fn new() -> Self {
+        0.5
+    }
+
     fn edit(&self, on_change: Callback<f32>) -> Element {
         let v = format!("{self}");
         let onchange = move |e: Event<FormData>| {
@@ -137,11 +201,17 @@ impl StopValue for f32 {
             on_change(v);
         };
         rsx! {
-            div { class: "flex flex-row gap-2 w-full",
+            div { class: "flex-row gap-2 w-full",
                 div { class: "flex-none", {v.clone()} }
                 div { class: "grow",
-                    input { type: "range", min: "0", max: "1", step: "0.01", class: "mx-4 w-full",
-                        value: v, onchange
+                    input {
+                        r#type: "range",
+                        min: "0",
+                        max: "1",
+                        step: "0.01",
+                        class: "mx-4 w-full",
+                        value: v,
+                        onchange,
                     }
                 }
             }

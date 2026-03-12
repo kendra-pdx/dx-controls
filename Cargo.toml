@@ -10,6 +10,7 @@ derive-new = { version = "0.7" }
 dioxus = { version = "0.7", features = [] }
 fairy-effect = { path = "../fairy-effect/", features = ["std"] }
 glam = { version = "0.32" }
+itertools = { version = "0.14" }
 
 [features]
 default = ["desktop"]

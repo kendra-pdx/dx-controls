@@ -190,9 +190,6 @@
   .mx-4 {
     margin-inline: calc(var(--spacing) * 4);
   }
-  .flex {
-    display: flex;
-  }
   .w-full {
     width: 100%;
   }
