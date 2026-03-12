@@ -1,10 +1,8 @@
-mod stops;
-
 use bevy_color::Color;
 use dioxus::prelude::*;
 use rand::RngExt;
 
-use crate::stops::{Stop, Stops};
+use dx_gradient::{Stop, Stops};
 
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 

@@ -1,17 +1,36 @@
 [package]
-name = "dx-forms"
+name = "dx-controls"
+version.workspace = true
+edition.workspace = true
+
+[workspace]
+members = [".", "crates/dx-gradient"]
+
+[workspace.package]
 version = "0.1.0"
 edition = "2024"
 
-[dependencies]
+[workspace.dependencies]
+# fairy-effect = { path = "../fairy-effect/", features = ["std"] }
+dx-gradient = { path = "./crates/dx-gradient/" }
+
 bevy_color = { version = "0.18" }
-derive_more = { version = "2.1", features = ["full"] }
+derive_more = { version = "2.1" }
 derive-new = { version = "0.7" }
-dioxus = { version = "0.7", features = [] }
-fairy-effect = { path = "../fairy-effect/", features = ["std"] }
+dioxus = { version = "0.7" }
 glam = { version = "0.32" }
 itertools = { version = "0.14" }
 rand = { version = "0.10" }
+
+[dependencies]
+bevy_color = { workspace = true }
+# derive_more = { workspace = true, features = ["full"] }
+derive-new = { workspace = true }
+dioxus = { workspace = true, features = [] }
+dx-gradient = { workspace = true }
+glam = { workspace = true }
+itertools = { workspace = true }
+rand = { workspace = true }
 
 [features]
 default = ["desktop"]

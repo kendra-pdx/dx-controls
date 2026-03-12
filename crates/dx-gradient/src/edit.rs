@@ -1,6 +1,7 @@
-use crate::stops::StopValue;
 use bevy_color::{Color, Mix};
 use dioxus::prelude::*;
+
+use crate::StopValue;
 
 impl StopValue for f32 {
     fn new(left: f32, right: f32) -> Self {
