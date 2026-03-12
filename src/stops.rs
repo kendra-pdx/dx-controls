@@ -1,3 +1,5 @@
+mod edit;
+
 use std::{fmt::Debug, ops::Range};
 
 use bevy_color::Color;
@@ -6,13 +8,13 @@ use dioxus::prelude::*;
 use glam::Vec2;
 use itertools::Itertools;
 
-pub trait StopValue: Clone {
-    fn new() -> Self;
+pub trait StopValue: Copy {
+    fn new(left: Self, right: Self) -> Self;
     fn edit(&self, on_change: Callback<Self>) -> Element;
     fn as_color(&self) -> Color;
 }
 
-#[derive(new, Store)]
+#[derive(new, Store, Clone, Copy)]
 pub struct Stop<V> {
     at: f32,
     value: V,
@@ -33,7 +35,12 @@ impl<Lens, V: StopValue + 'static> Store<Vec<Stop<V>>, Lens> {
         if let Some((ix, _)) = position {
             let ix = ix;
             info!(at, ix, "creating stop");
-            let stop = Stop::new(at, V::new());
+            assert!(ix > 0);
+            assert!(ix < self.len());
+            let left = self.read()[ix - 1];
+            let right = self.read()[ix];
+
+            let stop = Stop::new(at, V::new(left.value, right.value));
             self.insert(ix, stop);
         }
     }
@@ -186,39 +193,5 @@ fn StopHandle(
             onmousedown: move |_| on_dragging(()),
             onclick: move |_| on_select(()),
         }
-    }
-}
-
-impl StopValue for f32 {
-    fn new() -> Self {
-        0.5
-    }
-
-    fn edit(&self, on_change: Callback<f32>) -> Element {
-        let v = format!("{self}");
-        let onchange = move |e: Event<FormData>| {
-            let v: f32 = e.value().parse().expect("could not parse value as f32");
-            on_change(v);
-        };
-        rsx! {
-            div { class: "flex-row gap-2 w-full",
-                div { class: "flex-none", {v.clone()} }
-                div { class: "grow",
-                    input {
-                        r#type: "range",
-                        min: "0",
-                        max: "1",
-                        step: "0.01",
-                        class: "mx-4 w-full",
-                        value: v,
-                        onchange,
-                    }
-                }
-            }
-        }
-    }
-
-    fn as_color(&self) -> Color {
-        Color::srgb(*self, *self, *self)
     }
 }

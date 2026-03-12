@@ -11,6 +11,7 @@ dioxus = { version = "0.7", features = [] }
 fairy-effect = { path = "../fairy-effect/", features = ["std"] }
 glam = { version = "0.32" }
 itertools = { version = "0.14" }
+rand = { version = "0.10" }
 
 [features]
 default = ["desktop"]

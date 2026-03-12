@@ -1,6 +1,8 @@
 mod stops;
 
+use bevy_color::Color;
 use dioxus::prelude::*;
+use rand::RngExt;
 
 use crate::stops::{Stop, Stops};
 
@@ -12,7 +14,7 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    let stops = use_store(|| {
+    let floats = use_store(|| {
         vec![
             Stop::new(0.0, 0.2),
             Stop::new(0.3, 1.0),
@@ -20,10 +22,27 @@ fn App() -> Element {
         ]
     });
 
+    let colors = use_store(|| {
+        vec![
+            Stop::new(0.0, rand_color()),
+            Stop::new(0.7, rand_color()),
+            Stop::new(1.0, rand_color()),
+        ]
+    });
+
     rsx! {
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
         div { class: "w-full flex-col m-4 border rounded",
-            Stops { stops }
+            Stops { stops: floats }
+            Stops { stops: colors }
         }
     }
+}
+
+fn rand_color() -> Color {
+    let mut rng = rand::rng();
+    let h: f32 = rng.random::<f32>() * 360.0;
+    let s = rng.random_range(0.5..0.8);
+    let v = rng.random_range(0.5..0.8);
+    Color::hsv(h, s, v)
 }
