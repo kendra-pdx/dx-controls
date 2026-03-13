@@ -1,10 +1,13 @@
 mod edit;
 
-use std::{fmt::Debug, ops::Range};
+use std::fmt::Debug;
+use std::ops::Range;
 
 use bevy_color::Color;
 use derive_new::new;
 use dioxus::prelude::*;
+use dioxus_free_icons::icons::fi_icons::*;
+use dx_primitives::button::IconButton;
 use glam::Vec2;
 use itertools::Itertools;
 
@@ -96,6 +99,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
             selected.set(Some(ix));
         }
     };
+    let deselect = move |_| selected.set(None);
 
     let on_change = use_callback(move |v| {
         selected().and_then(|ix| stops.get_mut(ix)).map(|mut stop| {
@@ -139,7 +143,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
     });
 
     rsx! {
-        div { class: "p-4 flex-col gap-2",
+        div { class: "flex flex-col gap-2 p-4",
             svg {
                 view_box,
                 class: "w-full border rounded border-gray-400",
@@ -174,9 +178,18 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
                 editor
                     .map(|editor| {
                         rsx! {
-                            div { class: "flex-row gap-2",
-                                div {
-                                    button { onclick: remove_selected, "remove" }
+                            div { class: "flex flex-row items-center gap-2",
+                                div { class: "flex flex-row gap-1",
+                                    IconButton {
+                                        icon: Some(FiTrash2.into()),
+                                        text: Some("delete".into()),
+                                        preset: dx_primitives::button::StylePreset::Destructive,
+                                        onclick: remove_selected,
+                                    }
+                                    IconButton {
+                                        icon: Some(FiCheck.into()),
+                                        onclick: deselect,
+                                    }
                                 }
                                 {editor}
                             }

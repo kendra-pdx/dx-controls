@@ -2,10 +2,6 @@
 @source "src/**/*.{rs,css}";
 @source "crates/*/src/**/*.{rs,css}";
 
-div {
-    @apply flex;
-}
-
 body {
     @apply w-dvw h-svh flex;
 }

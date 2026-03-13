@@ -12,10 +12,11 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    let mut rng = rand::rng();
     let floats = use_store(|| {
         vec![
             Stop::new(0.0, 0.2),
-            Stop::new(0.3, 1.0),
+            Stop::new(rng.random_range(0.25..0.75), 1.0),
             Stop::new(1.0, 0.3),
         ]
     });
@@ -23,14 +24,14 @@ fn App() -> Element {
     let colors = use_store(|| {
         vec![
             Stop::new(0.0, rand_color()),
-            Stop::new(0.7, rand_color()),
+            Stop::new(rng.random_range(0.25..0.75), rand_color()),
             Stop::new(1.0, rand_color()),
         ]
     });
 
     rsx! {
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-        div { class: "w-full flex-col m-4 border rounded",
+        div { class: "w-full flex flex-col m-4 border rounded",
             Stops { stops: floats }
             Stops { stops: colors }
         }

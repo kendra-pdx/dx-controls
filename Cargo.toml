@@ -4,17 +4,18 @@ version.workspace = true
 edition.workspace = true
 
 [workspace]
-members = [".", "crates/dx-gradient"]
+members = [".", "crates/dx-gradient", "crates/dx-primitives"]
 
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
 
 [workspace.dependencies]
-# fairy-effect = { path = "../fairy-effect/", features = ["std"] }
 dx-gradient = { path = "./crates/dx-gradient/" }
+dx-primitives = { path = "./crates/dx-primitives/" }
 
 bevy_color = { version = "0.18" }
+bon = { version = "3.9" }
 derive_more = { version = "2.1" }
 derive-new = { version = "0.7" }
 dioxus = { version = "0.7" }
@@ -22,10 +23,10 @@ dioxus-free-icons = { version = "0.10", features = ["feather"] }
 glam = { version = "0.32" }
 itertools = { version = "0.14" }
 rand = { version = "0.10" }
+strum = { version = "0.28" }
 
 [dependencies]
 bevy_color = { workspace = true }
-# derive_more = { workspace = true, features = ["full"] }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
 dx-gradient = { workspace = true }

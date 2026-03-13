@@ -10,22 +10,37 @@ impl StopValue for f32 {
     }
 
     fn edit(&self, on_change: Callback<f32>) -> Element {
-        let v = format!("{self}");
         let onchange = move |e: Event<FormData>| {
             let v: f32 = e.value().parse().expect("could not parse value as f32");
             on_change(v);
         };
+
+        let preview_value = format!("{self:0.3}");
+        let preview_class = if *self < 0.5 {
+            "border-white text-white"
+        } else {
+            "border-black text-black"
+        };
+
+        let bg_style = {
+            let color = self.as_color().to_srgba().to_hex();
+            format!("background-color: {color}")
+        };
+
         rsx! {
-            div { class: "flex-row gap-2 w-full",
-                div { class: "flex-none", {v.clone()} }
-                div { class: "grow",
+            div { class: "flex flex-row gap-2 h-full w-full place-items-center",
+                div { class: "flex flex-none text-xs p-1 border rounded border-gray-500 {preview_class}",
+                    style: "{bg_style}",
+                    {preview_value}
+                }
+                div { class: "flex grow",
                     input {
                         r#type: "range",
                         min: "0",
                         max: "1",
                         step: "0.01",
                         class: "mx-4 w-full",
-                        value: v,
+                        value: self.to_string(),
                         onchange,
                     }
                 }
@@ -55,12 +70,12 @@ impl StopValue for Color {
             }
         };
         rsx! {
-            div { class: "flex-row gap-2 w-full align-items-center",
+            div { class: "flex flex-row h-full gap-2 w-full items-center",
                 input {
                     r#type: "color",
                     class: "mx-4 w-full h-full",
                     value: hex,
-                    onchange,
+                    onchange
                 }
             }
         }

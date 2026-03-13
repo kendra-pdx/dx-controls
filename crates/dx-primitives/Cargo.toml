@@ -1,13 +1,11 @@
 [package]
-name = "dx-gradient"
+name = "dx-primitives"
 version.workspace = true
 edition.workspace = true
 
 [dependencies]
-bevy_color = { workspace = true }
+bon = { workspace = true }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
 dioxus-free-icons = { workspace = true }
-dx-primitives = { workspace = true }
-glam = { workspace = true }
-itertools = { workspace = true }
+strum = { workspace = true , features = ["derive"] }
