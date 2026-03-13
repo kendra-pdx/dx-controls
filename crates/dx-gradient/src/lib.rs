@@ -25,7 +25,7 @@ pub struct Stop<V> {
 
 #[store]
 impl<Lens, V: StopValue + 'static> Store<Stop<V>, Lens> {
-    fn can_drag(&self) -> bool {
+    fn position_mutable(&self) -> bool {
         let at = self.at()();
         at > 0.0 && at < 1.0
     }
@@ -84,7 +84,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
 
     let start_dragging_for = move |ix| {
         move |_| {
-            if stops.get(ix).is_some_and(|s| s.can_drag()) {
+            if stops.get(ix).is_some_and(|s| s.position_mutable()) {
                 dragging.set(Some(ix));
             }
         }
@@ -126,10 +126,21 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
         .and_then(|ix| stops.get(ix))
         .map(|stop| stop.value()().edit(on_change));
 
+    let selected_removable = use_memo(move || {
+        if let Some(ix) = selected() {
+            ix != 0 && ix != stops.len() - 1
+        } else {
+            false
+        }
+    });
+
     let remove_selected = use_callback(move |_| {
         if let Some(ix) = selected() {
             info!(ix, "removing stop at index");
-            stops.remove(ix);
+            if ix != 0 && ix != stops.len() - 1 {
+                // cannot delete the first or last index
+                stops.remove(ix);
+            }
             selected.set(None);
         }
     });
@@ -182,11 +193,13 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
                         rsx! {
                             div { class: "flex flex-row items-center gap-2",
                                 div { class: "flex flex-row gap-1",
-                                    IconButton {
-                                        icon: Some(FiTrash2.into()),
-                                        text: Some("delete".into()),
-                                        preset: dx_primitives::button::StylePreset::Destructive,
-                                        onclick: remove_selected,
+                                    if selected_removable() {
+                                        IconButton {
+                                            icon: Some(FiTrash2.into()),
+                                            text: Some("delete".into()),
+                                            preset: dx_primitives::button::StylePreset::Destructive,
+                                            onclick: remove_selected,
+                                        }
                                     }
                                     IconButton {
                                         icon: Some(FiCheck.into()),
