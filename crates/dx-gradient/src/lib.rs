@@ -154,7 +154,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
                 onresize: on_resize,
                 onmousemove: mouse_move,
                 onmouseup: stop_dragging,
-                onmousedown: create_stop,
+                onclick: create_stop,
                 defs {
                     g { id: "handle",
                         rect { x: -8, y: -8, width: 16, height: 16, rx: 3, ry: 2,
@@ -167,7 +167,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
                     }
                 }
                 line { class: "stroke-gray-300", x1: -h_width(), x2: h_width() }
-                for (i , stop) in stops.iter().enumerate() {
+                for (i, stop) in stops.iter().enumerate() {
                     StopHandle {
                         at: stop.at(),
                         x_range,
@@ -210,11 +210,14 @@ fn StopHandle(
     on_select: Callback,
 ) -> Element {
     let x = (at() * (x_range().end - x_range().start)) + x_range().start;
-    info!(x, at = at(), "stop handle");
+    let select = move |e: Event<MouseData>| {
+        e.stop_propagation();
+        on_select(());
+    };
     rsx! {
         use { href: "#handle", x,
             onmousedown: move |_| on_dragging(()),
-            onclick: move |_| on_select(()),
+            onclick: select,
         }
     }
 }
