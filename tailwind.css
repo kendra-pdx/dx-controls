@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "src/**/*.{rs,css}";
+@source "crates/*/src/**/*.{rs,css}";
 
 div {
     @apply flex;

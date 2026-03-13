@@ -8,5 +8,6 @@ bevy_color = { workspace = true }
 # derive_more = { workspace = true, features = ["full"] }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
+dioxus-free-icons = { workspace = true }
 glam = { workspace = true }
 itertools = { workspace = true }

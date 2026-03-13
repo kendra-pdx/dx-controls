@@ -149,6 +149,17 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
                 onmousemove: mouse_move,
                 onmouseup: stop_dragging,
                 onmousedown: create_stop,
+                defs {
+                    g { id: "handle",
+                        rect { x: -8, y: -8, width: 16, height: 16, rx: 3, ry: 2,
+                            class: "stroke-black/90 fill-black/50",
+                            stroke_width: "1.5",
+                        }
+                        rect { x: -9, y: -9, width: 18, height: 18, rx: 3, ry: 2,
+                            class: "stroke-white/90 fill-none",
+                        }
+                    }
+                }
                 line { class: "stroke-gray-300", x1: -h_width(), x2: h_width() }
                 for (i , stop) in stops.iter().enumerate() {
                     StopHandle {
@@ -183,13 +194,10 @@ fn StopHandle(
     on_dragging: Callback,
     on_select: Callback,
 ) -> Element {
-    let cx = (at() * (x_range().end - x_range().start)) + x_range().start;
+    let x = (at() * (x_range().end - x_range().start)) + x_range().start;
+    info!(x, at = at(), "stop handle");
     rsx! {
-        circle {
-            fill: "black",
-            r: 6,
-            cx,
-            cy: 0,
+        use { href: "#handle", x,
             onmousedown: move |_| on_dragging(()),
             onclick: move |_| on_select(()),
         }

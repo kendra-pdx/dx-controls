@@ -9,6 +9,8 @@
     monospace;
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-black: #000;
+    --color-white: #fff;
     --spacing: 0.25rem;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -193,35 +195,11 @@
   .flex {
     display: flex;
   }
-  .inline-block {
-    display: inline-block;
-  }
   .table {
     display: table;
   }
-  .h-2 {
-    height: calc(var(--spacing) * 2);
-  }
-  .h-8 {
-    height: calc(var(--spacing) * 8);
-  }
-  .h-16 {
-    height: calc(var(--spacing) * 16);
-  }
-  .h-24 {
-    height: calc(var(--spacing) * 24);
-  }
   .h-full {
     height: 100%;
-  }
-  .w-2 {
-    width: calc(var(--spacing) * 2);
-  }
-  .w-16 {
-    width: calc(var(--spacing) * 16);
-  }
-  .w-24 {
-    width: calc(var(--spacing) * 24);
   }
   .w-full {
     width: 100%;
@@ -263,8 +241,50 @@
   .border-gray-400 {
     border-color: var(--color-gray-400);
   }
+  .fill-black {
+    fill: var(--color-black);
+  }
+  .fill-black\/50 {
+    fill: color-mix(in srgb, #000 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      fill: color-mix(in oklab, var(--color-black) 50%, transparent);
+    }
+  }
+  .fill-none {
+    fill: none;
+  }
+  .stroke-black {
+    stroke: var(--color-black);
+  }
+  .stroke-black\/10 {
+    stroke: color-mix(in srgb, #000 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
+    }
+  }
+  .stroke-black\/90 {
+    stroke: color-mix(in srgb, #000 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      stroke: color-mix(in oklab, var(--color-black) 90%, transparent);
+    }
+  }
   .stroke-gray-300 {
     stroke: var(--color-gray-300);
+  }
+  .stroke-white {
+    stroke: var(--color-white);
+  }
+  .stroke-white\/10 {
+    stroke: color-mix(in srgb, #fff 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
+  }
+  .stroke-white\/90 {
+    stroke: color-mix(in srgb, #fff 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      stroke: color-mix(in oklab, var(--color-white) 90%, transparent);
+    }
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
