@@ -10,7 +10,9 @@
     --color-red-100: oklch(93.6% 0.032 17.717);
     --color-red-200: oklch(88.5% 0.062 18.334);
     --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-green-200: oklch(92.5% 0.084 155.995);
     --color-green-300: oklch(87.1% 0.15 154.449);
+    --color-blue-200: oklch(88.2% 0.059 254.128);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
@@ -439,6 +441,26 @@
           --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-red-500) 50%, transparent) var(--tw-shadow-alpha), transparent);
         }
       }
+    }
+  }
+  .focus\:bg-green-200 {
+    &:focus {
+      background-color: var(--color-green-200);
+    }
+  }
+  .active\:bg-green-200 {
+    &:active {
+      background-color: var(--color-green-200);
+    }
+  }
+  .active\:ring-blue-200 {
+    &:active {
+      --tw-ring-color: var(--color-blue-200);
+    }
+  }
+  .active\:ring-green-200 {
+    &:active {
+      --tw-ring-color: var(--color-green-200);
     }
   }
 }

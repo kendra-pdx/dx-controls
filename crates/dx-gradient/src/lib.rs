@@ -14,7 +14,7 @@ use itertools::Itertools;
 pub trait StopValue: Copy {
     fn new(left: Self, right: Self) -> Self;
     fn edit(&self, on_change: Callback<Self>) -> Element;
-    fn as_color(&self) -> Color;
+    fn as_color(&self, all: impl IntoIterator<Item = Self>) -> Color;
 }
 
 #[derive(new, Store, Clone, Copy)]
@@ -111,8 +111,10 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
         let segments = stops
             .iter()
             .map(|s| {
+                let all_vals = stops.iter().map(|s| s.value()());
+
                 let at = s.at() * 100.0;
-                let color = s.value()().as_color().to_srgba().to_hex();
+                let color = s.value()().as_color(all_vals).to_srgba().to_hex();
                 format!("{color} {at}%")
             })
             .join(", ");

@@ -21,6 +21,14 @@ fn App() -> Element {
         ]
     });
 
+    let usizes = use_store(|| {
+        vec![
+            Stop::new(0.0, 2_usize),
+            Stop::new(rng.random_range(0.25..0.75), 5),
+            Stop::new(1.0, 2),
+        ]
+    });
+
     let colors = use_store(|| {
         vec![
             Stop::new(0.0, rand_color()),
@@ -34,6 +42,7 @@ fn App() -> Element {
         div { class: "w-full flex flex-col m-4 border rounded",
             Stops { stops: floats }
             Stops { stops: colors }
+            Stops { stops: usizes }
         }
     }
 }
