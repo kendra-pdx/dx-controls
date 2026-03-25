@@ -1,9 +1,8 @@
-mod edit;
+mod stop_value;
 
 use std::fmt::Debug;
 use std::ops::Range;
 
-use bevy_color::Color;
 use derive_new::new;
 use dioxus::prelude::*;
 use dioxus_free_icons::icons::fi_icons::*;
@@ -11,11 +10,7 @@ use dx_primitives::button::IconButton;
 use glam::Vec2;
 use itertools::Itertools;
 
-pub trait StopValue: Copy {
-    fn new(left: Self, right: Self) -> Self;
-    fn edit(&self, on_change: Callback<Self>) -> Element;
-    fn as_color(&self, all: impl IntoIterator<Item = Self>) -> Color;
-}
+pub use stop_value::*;
 
 #[derive(new, Store, Clone, Copy)]
 pub struct Stop<V> {
