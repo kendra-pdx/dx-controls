@@ -3,26 +3,25 @@ use std::{
     str::FromStr,
 };
 
-use which::which;
+use crate::{
+    CssMetadata, Error,
+    cmd::{Cmd, TailwindCssCmd},
+};
 
-use crate::{CssMetadata, Manifest};
+pub fn tailwind(manifest: &CssMetadata, out_dir: &Path) -> Result<Option<PathBuf>, Error> {
+    let input = match tailwind_input(manifest) {
+        Some(input) => input,
+        None => return Ok(None),
+    };
 
-pub fn tailwind(manifest: &CssMetadata, out_dir: &Path) -> Option<PathBuf> {
-    let tailwindcss_exe = tailwind_exe()?;
-    let input = tailwind_input(manifest)?;
-    None
+    let output = out_dir.join("tailwind_out.css");
+    let cmd = TailwindCssCmd::new(input, output);
+    cmd.execute()?;
+    Ok(Some(cmd.output))
 }
 
 /// gets the tailwind css input file.
 fn tailwind_input(manifest: &CssMetadata) -> Option<PathBuf> {
-    let input = manifest.tailwind_input?;
+    let input = manifest.tailwind_input.clone()?;
     PathBuf::from_str(&input).ok()
-}
-
-fn tailwind_exe() -> Option<PathBuf> {
-    which("tailwindcss")
-        .inspect_err(|_| {
-            println!("cargo::error=tailwindcss not found");
-        })
-        .ok()
 }

@@ -2,6 +2,7 @@
 name = "dx-gradient"
 version.workspace = true
 edition.workspace = true
+links = "dx_gradient_css"
 
 [dependencies]
 bevy_color = { workspace = true }
@@ -11,3 +12,6 @@ dioxus-free-icons = { workspace = true }
 dx-primitives = { workspace = true }
 glam = { workspace = true }
 itertools = { workspace = true }
+
+[build-dependencies]
+dx-css-build = { workspace = true }

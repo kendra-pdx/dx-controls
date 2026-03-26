@@ -1,6 +1,10 @@
 mod bundle;
 mod cmd;
+mod error;
 mod tailwind;
+
+use derive_new::new;
+pub use error::*;
 
 use std::{env, path::PathBuf, str::FromStr};
 
@@ -8,23 +12,61 @@ use serde::Deserialize;
 
 type Manifest = cargo_manifest::Manifest<Metadata, cargo_manifest::Value>;
 
-pub fn css_build() -> Option<()> {
-    let out_dir = env::var("OUT_DIR").expect("OUT_DIR is not set");
-    let out_dir = PathBuf::from_str(&out_dir).expect("could not convert OUT_DIR to a Path");
+#[macro_export]
+macro_rules! debug {
+    ($fmt:literal, $($args:expr),+) => {
+        #[cfg(feature = "debug")]
+        println!(concat!("cargo::warning=", $fmt), $($args),+);
+    };
+}
 
-    let manifest_path = env::var("CARGO_MANIFEST_PATH").expect("CARGO_MANIFEST_PATH is not set");
+#[derive(Debug, new)]
+pub struct CssBuilt {
+    pub tailwind_css: Option<PathBuf>,
+    pub bundle_css: Option<PathBuf>,
+}
+
+pub fn css_build(tailwind: bool, bundle: bool) -> Result<CssBuilt, Error> {
+    debug!("hello {}", "world");
+    let out_dir = env::var("OUT_DIR")?;
+    let out_dir = PathBuf::from_str(&out_dir).unwrap(); // this is infallible
+
+    let manifest_path = env::var("CARGO_MANIFEST_PATH")?;
 
     println!("cargo:rerun-if-changed=build.rs");
 
     let manifest =
         Manifest::from_path_with_metadata(manifest_path).expect("Failed to read Cargo.toml");
-    
     let css_metadata = CssMetadata::from(manifest);
 
-    let tailwind_out = tailwind::tailwind(&css_metadata, &out_dir)?;
+    let tailwind_out = if tailwind {
+        let tailwind_out = tailwind::tailwind(&css_metadata, &out_dir)?;
+        if let Some(tailwind_out) = &tailwind_out {
+            println!(
+                "cargo::metadata=tailwind_css={}",
+                tailwind_out.to_string_lossy()
+            );
+        }
+        tailwind_out
+    } else {
+        None
+    };
 
-    println!("cargo::metadata=cs={:?}", out_dir);
-    None
+    let bundle_out = if bundle {
+        let bundle_out = bundle::bundle(&css_metadata, tailwind_out.clone(), &out_dir)?;
+        if let Some(bundle_out) = &bundle_out {
+            println!(
+                "cargo::metadata=bundle_css={}",
+                bundle_out.to_string_lossy()
+            );
+        }
+        bundle_out
+    } else {
+        None
+    };
+
+    let built = CssBuilt::new(tailwind_out, bundle_out);
+    Ok(built)
 }
 
 #[derive(Debug, Deserialize, Clone)]
