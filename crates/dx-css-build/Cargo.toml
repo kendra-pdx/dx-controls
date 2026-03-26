@@ -5,3 +5,8 @@ edition.workspace = true
 
 [dependencies]
 cargo-manifest = { workspace = true }
+derive-new = { workspace = true }
+lightningcss = { workspace = true, features = ["bundler", "serde"] }
+serde = { workspace = true, features = ["derive"] }
+thiserror = { workspace = true }
+which = { workspace = true }
