@@ -347,6 +347,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cargo-manifest"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "99c6f1c3eb197d17dde4f1a1170fbe7ce3e5f23f1166ae480875a9f4a9c11c40"
+dependencies = [
+ "serde",
+ "thiserror 2.0.18",
+ "toml",
+]
+
+[[package]]
 name = "cc"
 version = "1.2.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1330,10 +1341,19 @@ dependencies = [
  "bevy_color",
  "derive-new",
  "dioxus",
+ "dx-css-build",
  "dx-gradient",
+ "dx-primitives",
  "glam 0.32.1",
  "itertools",
  "rand 0.10.0",
+]
+
+[[package]]
+name = "dx-css-build"
+version = "0.1.0"
+dependencies = [
+ "cargo-manifest",
 ]
 
 [[package]]
@@ -1357,6 +1377,7 @@ dependencies = [
  "derive-new",
  "dioxus",
  "dioxus-free-icons",
+ "dx-css-build",
  "strum",
 ]
 
@@ -4282,6 +4303,7 @@ version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "185d8ab0dfbb35cf1399a6344d8484209c088f75f8f68230da55d48d95d43e3d"
 dependencies = [
+ "indexmap",
  "serde",
  "serde_spanned",
  "toml_datetime 0.6.3",

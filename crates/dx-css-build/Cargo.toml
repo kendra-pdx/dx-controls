@@ -1,0 +1,7 @@
+[package]
+name = "dx-css-build"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+cargo-manifest = { workspace = true }

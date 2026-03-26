@@ -2,10 +2,14 @@
 name = "dx-primitives"
 version.workspace = true
 edition.workspace = true
+links = "dx_primitives_css"
 
 [dependencies]
 bon = { workspace = true }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
 dioxus-free-icons = { workspace = true }
-strum = { workspace = true , features = ["derive"] }
+strum = { workspace = true, features = ["derive"] }
+
+[build-dependencies]
+dx-css-build = { workspace = true }
