@@ -21,7 +21,11 @@ pub struct Text {
 #[derive(Debug, Default, PartialEq, Clone, Copy, EnumProperty)]
 pub enum StylePreset {
     #[strum(props(
-        main_class = "cursor-pointer text-black border rounded border-black hover:bg-gray-100 hover:shadow-gray-500/50 hover:shadow-sm",
+        main_class = r#"
+            cursor-pointer transition-colors duration-250
+            bg-dx-surface1 text-dx-on-surface1 border rounded border-dx-on-surface1
+            hover:bg-dx-surface-hover hover:text-dx-hover hover:border-dx-hover
+            hover:shadow-gray-500/50 hover:shadow-sm"#,
         icon_class = "",
         text_class = "text-sm hidden group-hover:flex"
     ))]
@@ -29,7 +33,12 @@ pub enum StylePreset {
     Normal,
 
     #[strum(props(
-        main_class = "cursor-pointer text-red-500 border rounded border-red-500 hover:bg-red-100 hover:shadow-red-500/50 hover:shadow-sm",
+        // main_class = "cursor-pointer text-red-500 border rounded border-red-500 hover:bg-red-100 hover:shadow-red-500/50 hover:shadow-sm",
+        main_class = r#"
+            cursor-pointer transition-colors duration-250
+            bg-dx-surface1 text-dx-destructive border rounded border-dx-destructive
+            hover:bg-dx-surface-hover
+            hover:shadow-gray-500/50 hover:shadow-sm"#,
         icon_class = "",
         text_class = "text-sm hidden group-hover:flex"
     ))]

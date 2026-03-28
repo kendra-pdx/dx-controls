@@ -20,20 +20,21 @@ impl StopValue for Duration {
 
         let preview_value = format!("{self:?}",);
         let preview_class = if self.as_secs_f32() < 0.5 {
-            "border-white text-white"
+            "border-gray-500 text-on-surface-dark bg-surface-dark"
         } else {
-            "border-black text-black"
+            // "border-black text-black"
+            "border-gray-500 text-on-surface-dark bg-surface-dark"
         };
 
-        let bg_style = {
-            let color = self.as_color(None).to_srgba().to_hex();
-            format!("background-color: {color}")
-        };
+        // let bg_style = {
+        //     let color = self.as_color(None).to_srgba().to_hex();
+        //     format!("background-color: {color}")
+        // };
 
         rsx! {
             div { class: "flex flex-row gap-2 h-full w-full place-items-center",
                 div { class: "flex flex-none text-xs p-1 border rounded border-gray-500 {preview_class}",
-                    style: "{bg_style}",
+                    // style: "{bg_style}",
                     {preview_value}
                 }
                 div { class: "flex grow",

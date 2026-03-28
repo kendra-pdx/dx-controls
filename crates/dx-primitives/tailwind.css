@@ -1,2 +1,31 @@
 @import "tailwindcss";
 @source "src/**/*.{rs,css}";
+
+:root {
+    --dx-primary: #336699;
+    --dx-active: #996633;
+    --dx-hover: #996633;
+    --dx-destructive: var(--color-red-500);
+
+    --dx-surface0: #000;
+    --dx-on-surface0: #fff;
+
+    --dx-surface1: #111;
+    --dx-on-surface1: #fff;
+}
+
+@theme {
+    --color-dx-primary: var(--dx-primary);
+    --color-dx-hover: var(--dx-hover);
+    --color-dx-active: var(--dx-active);
+    --color-dx-destructive: var(--dx-destructive);
+
+    --color-dx-surface0: var(--dx-surface0);
+    --color-dx-on-surface0: var(--dx-on-surface0);
+
+    --color-dx-surface1: var(--dx-surface1);
+    --color-dx-on-surface1: var(--dx-on-surface1);
+
+    --color-dx-surface-hover: var(--dx-surface1);
+    --color-dx-surface-active: var(--dx-surface1);
+}

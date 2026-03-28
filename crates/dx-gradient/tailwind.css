@@ -1,2 +1,12 @@
 @import "tailwindcss";
 @source "src/**/*.{rs,css}";
+
+:root {
+    --dx-surface: #000;
+    --dx-on-surface: #fff;
+}
+
+@theme {
+    --color-dx-surface: var(--dx-surface);
+    --color-dx-on-surface: var(--dx-on-surface);
+}
