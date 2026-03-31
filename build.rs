@@ -1,11 +1,20 @@
-use dx_css_build::css_build;
+use std::{env, path::PathBuf};
 
 pub fn main() {
-    let _ = css_build(true, true)
-        .inspect_err(|e| println!("cargo::error=CSS build failed: {e}"))
-        .inspect(|built| println!("cargo::warning=Built TailwindCSS: {built:?}",));
-
-    // print_env();
+    // println!("cargo::rerun-if-changed=tailwind.css");
+    // println!("cargo::rerun-if-changed=src/");
+    let css = dx_css_build::css_build(true, true);
+    if let Ok(css) = &css
+        && let Some(bundle_css) = &css.bundle_css
+    {
+        let cargo_dir = env::var("CARGO_MANIFEST_DIR")
+            .map(PathBuf::from)
+            .expect("CARGO_MANIFEST_DIR is not set.");
+        let bundle_to = cargo_dir.join("assets").join("bundle.css");
+        std::fs::copy(bundle_css, bundle_to).expect("could not copy bundle to assets");
+    } else {
+        println!("cargo::warning=CSS was not bundled: {:?}", css);
+    }
 }
 
 fn _print_env() {

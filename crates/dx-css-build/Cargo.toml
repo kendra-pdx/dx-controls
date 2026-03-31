@@ -3,6 +3,10 @@ name = "dx-css-build"
 version.workspace = true
 edition.workspace = true
 
+[[bin]]
+name = "dx-css-build-cli"
+path = "src/main.rs"
+
 [dependencies]
 cargo-manifest = { workspace = true }
 derive-new = { workspace = true }

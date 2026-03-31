@@ -14,7 +14,7 @@ pub enum Error {
         #[source]
         std::io::Error,
     ),
-    VerError(
+    VarError(
         #[from]
         #[source]
         std::env::VarError,

@@ -4,7 +4,7 @@ use rand::RngExt;
 
 use dx_gradient::{Stop, Stops};
 
-const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
+const TAILWIND_CSS: Asset = asset!("/assets/bundle.css");
 
 fn main() {
     dioxus::launch(App);

@@ -1,19 +1,6 @@
 @import "tailwindcss";
 @source "src/**/*.{rs,css}";
 
-:root {
-    --dx-primary: #336699;
-    --dx-active: #996633;
-    --dx-hover: #996633;
-    --dx-destructive: var(--color-red-500);
-
-    --dx-surface0: #000;
-    --dx-on-surface0: #fff;
-
-    --dx-surface1: #111;
-    --dx-on-surface1: #fff;
-}
-
 @theme {
     --color-dx-primary: var(--dx-primary);
     --color-dx-hover: var(--dx-hover);

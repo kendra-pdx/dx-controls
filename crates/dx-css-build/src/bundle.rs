@@ -20,9 +20,12 @@ pub fn bundle(
 ) -> Result<Option<PathBuf>, Error> {
     let mut sources = Vec::new();
 
-    tailwind_css
-        .into_iter()
-        .chain(linked_css_sources())
+    // tailwind_css
+    //     .into_iter()
+    //     .chain(linked_css_sources())
+    //     .for_each(|source| sources.push(source));
+    linked_css_sources()
+        .chain(tailwind_css.into_iter())
         .for_each(|source| sources.push(source));
 
     if sources.is_empty() {
@@ -64,7 +67,7 @@ fn gen_bundle(source: &Path, out_dir: &Path) -> Result<PathBuf, Error> {
 
     // generate css
     let printer_options = PrinterOptions {
-        minify: true,
+        // minify: true,
         ..PrinterOptions::default()
     };
     let css = stylesheet
