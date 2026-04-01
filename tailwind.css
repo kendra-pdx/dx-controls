@@ -1,32 +1,33 @@
 @import "tailwindcss";
 @source "src/**/*.{rs,css}";
-@import "./design.css";
-/*
+
 :root {
-    --dx-primary: #336699;
-    --dx-active: #996633;
-    --dx-hover: #996633;
-    --dx-destructive: var(--color-red-500);
+    --dx-primary: #8bd5ca;
+    --dx-hover: #a6da95;
+    --dx-active: #7dc4e4;
+    --dx-destructive: #ed8796;
 
-    --dx-surface0: #000;
-    --dx-on-surface0: #fff;
+    --dx-surface0: white;
+    --dx-on-surface0: black;
+    --dx-surface1: white;
+    --dx-on-surface1: black;
+}
 
-    --dx-surface1: #111;
-    --dx-on-surface1: #fff;
-}*/
+@theme {
+    --color-dx-primary: var(--dx-primary);
+    --color-dx-hover: var(--dx-hover);
+    --color-dx-active: var(--dx-active);
+    --color-dx-destructive: var(--dx-destructive);
 
-/*:root {
-    --dx-primary: #336699;
-    --dx-active: #996633;
-    --dx-hover: #996633;
-    --dx-destructive: var(--color-red-500);
+    --color-dx-surface0: var(--dx-surface0);
+    --color-dx-on-surface0: var(--dx-on-surface0);
 
-    --dx-surface0: #000;
-    --dx-on-surface0: #fff;
+    --color-dx-surface1: var(--dx-surface1);
+    --color-dx-on-surface1: var(--dx-on-surface1);
 
-    --dx-surface1: #111;
-    --dx-on-surface1: #fff;
-}*/
+    --color-dx-surface-hover: var(--dx-surface1);
+    --color-dx-surface-active: var(--dx-surface1);
+}
 
 body {
     @apply w-dvw h-svh flex;
@@ -34,4 +35,8 @@ body {
 
 #main {
     @apply w-full h-full flex;
+}
+
+label {
+    @apply text-xs;
 }

@@ -1,0 +1,29 @@
+@reference "tailwindcss";
+
+:root {
+    --dx-primary: #8bd5ca;
+    --dx-hover: #a6da95;
+    --dx-active: #7dc4e4;
+    --dx-destructive: #ed8796;
+
+    --dx-surface0: white;
+    --dx-on-surface0: black;
+    --dx-surface1: white;
+    --dx-on-surface1: black;
+}
+
+@theme {
+    --color-dx-primary: var(--dx-primary);
+    --color-dx-hover: var(--dx-hover);
+    --color-dx-active: var(--dx-active);
+    --color-dx-destructive: var(--dx-destructive);
+
+    --color-dx-surface0: var(--dx-surface0);
+    --color-dx-on-surface0: var(--dx-on-surface0);
+
+    --color-dx-surface1: var(--dx-surface1);
+    --color-dx-on-surface1: var(--dx-on-surface1);
+
+    --color-dx-surface-hover: var(--dx-surface1);
+    --color-dx-surface-active: var(--dx-surface1);
+}

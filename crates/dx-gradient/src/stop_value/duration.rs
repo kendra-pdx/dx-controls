@@ -1,6 +1,7 @@
 use crate::StopValue;
 use bevy_color::*;
 use dioxus::prelude::*;
+use dx_primitives::input::DurationInput;
 use std::time::Duration;
 
 impl StopValue for Duration {
@@ -12,41 +13,14 @@ impl StopValue for Duration {
     }
 
     fn edit(&self, on_change: Callback<Duration>) -> Element {
-        let onchange = move |e: Event<FormData>| {
-            let v: f32 = e.value().parse().expect("could not parse value as f32");
-            let duration = Duration::from_secs_f32(v);
-            on_change(duration);
-        };
-
-        let preview_value = format!("{self:?}",);
-        let preview_class = if self.as_secs_f32() < 0.5 {
-            "border-gray-500 text-on-surface-dark bg-surface-dark"
-        } else {
-            // "border-black text-black"
-            "border-gray-500 text-on-surface-dark bg-surface-dark"
-        };
-
-        // let bg_style = {
-        //     let color = self.as_color(None).to_srgba().to_hex();
-        //     format!("background-color: {color}")
-        // };
+        let value = *self;
+        let duration_onchange = move |d: Duration| on_change.call(d);
 
         rsx! {
-            div { class: "flex flex-row gap-2 h-full w-full place-items-center",
-                div { class: "flex flex-none text-xs p-1 border rounded border-gray-500 {preview_class}",
-                    // style: "{bg_style}",
-                    {preview_value}
-                }
-                div { class: "flex grow",
-                    input {
-                        r#type: "range",
-                        min: "0",
-                        max: "1",
-                        step: "0.01",
-                        class: "mx-4 w-full",
-                        value: self.as_secs_f32().to_string(),
-                        onchange,
-                    }
+            div {class: "flex flex-row gap-2 h-full w-full place-items-center",
+                DurationInput {
+                    value,
+                    onchange: duration_onchange
                 }
             }
         }

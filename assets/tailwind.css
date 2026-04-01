@@ -23,6 +23,16 @@
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
+    --color-dx-primary: var(--dx-primary);
+    --color-dx-hover: var(--dx-hover);
+    --color-dx-active: var(--dx-active);
+    --color-dx-destructive: var(--dx-destructive);
+    --color-dx-surface0: var(--dx-surface0);
+    --color-dx-on-surface0: var(--dx-on-surface0);
+    --color-dx-surface1: var(--dx-surface1);
+    --color-dx-on-surface1: var(--dx-on-surface1);
+    --color-dx-surface-hover: var(--dx-surface1);
+    --color-dx-surface-active: var(--dx-surface1);
   }
 }
 @layer base {
@@ -207,6 +217,9 @@
   .hidden {
     display: none;
   }
+  .table {
+    display: table;
+  }
   .h-full {
     height: 100%;
   }
@@ -216,14 +229,26 @@
   .flex-none {
     flex: none;
   }
+  .flex-grow {
+    flex-grow: 1;
+  }
   .grow {
     flex-grow: 1;
+  }
+  .grow-0 {
+    flex-grow: 0;
+  }
+  .border-collapse {
+    border-collapse: collapse;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .cursor-pointer {
     cursor: pointer;
+  }
+  .resize {
+    resize: both;
   }
   .flex-col {
     flex-direction: column;
@@ -253,6 +278,12 @@
   .border-black {
     border-color: var(--color-black);
   }
+  .border-dx-destructive {
+    border-color: var(--color-dx-destructive);
+  }
+  .border-dx-on-surface1 {
+    border-color: var(--color-dx-on-surface1);
+  }
   .border-gray-400 {
     border-color: var(--color-gray-400);
   }
@@ -265,6 +296,12 @@
   .border-white {
     border-color: var(--color-white);
   }
+  .bg-dx-surface1 {
+    background-color: var(--color-dx-surface1);
+  }
+  .fill-black {
+    fill: var(--color-black);
+  }
   .fill-black\/50 {
     fill: color-mix(in srgb, #000 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -274,6 +311,9 @@
   .fill-none {
     fill: none;
   }
+  .stroke-black {
+    stroke: var(--color-black);
+  }
   .stroke-black\/90 {
     stroke: color-mix(in srgb, #000 90%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -282,6 +322,9 @@
   }
   .stroke-gray-300 {
     stroke: var(--color-gray-300);
+  }
+  .stroke-white {
+    stroke: var(--color-white);
   }
   .stroke-white\/90 {
     stroke: color-mix(in srgb, #fff 90%, transparent);
@@ -306,11 +349,24 @@
   .text-black {
     color: var(--color-black);
   }
+  .text-dx-destructive {
+    color: var(--color-dx-destructive);
+  }
+  .text-dx-on-surface1 {
+    color: var(--color-dx-on-surface1);
+  }
   .text-red-500 {
     color: var(--color-red-500);
   }
   .text-white {
     color: var(--color-white);
+  }
+  .underline {
+    text-decoration-line: underline;
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
   }
   .transition-colors {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
@@ -328,10 +384,31 @@
       }
     }
   }
+  .hover\:border-dx-hover {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--color-dx-hover);
+      }
+    }
+  }
+  .hover\:bg-dx-surface-hover {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-dx-surface-hover);
+      }
+    }
+  }
   .hover\:bg-red-100 {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-red-100);
+      }
+    }
+  }
+  .hover\:text-dx-hover {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-dx-hover);
       }
     }
   }
@@ -364,6 +441,16 @@
     }
   }
 }
+:root {
+  --dx-primary: #8bd5ca;
+  --dx-hover: #a6da95;
+  --dx-active: #7dc4e4;
+  --dx-destructive: #ed8796;
+  --dx-surface0: white;
+  --dx-on-surface0: black;
+  --dx-surface1: white;
+  --dx-on-surface1: black;
+}
 body {
   display: flex;
   height: 100svh;
@@ -373,6 +460,10 @@ body {
   display: flex;
   height: 100%;
   width: 100%;
+}
+label {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading, var(--text-xs--line-height));
 }
 @property --tw-rotate-x {
   syntax: "*";
@@ -395,6 +486,11 @@ body {
   inherits: false;
 }
 @property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-outline-style {
   syntax: "*";
   inherits: false;
   initial-value: solid;
@@ -477,6 +573,7 @@ body {
       --tw-skew-x: initial;
       --tw-skew-y: initial;
       --tw-border-style: solid;
+      --tw-outline-style: solid;
       --tw-duration: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;

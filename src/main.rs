@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use bevy_color::Color;
 use dioxus::prelude::*;
 use rand::RngExt;
@@ -21,6 +23,13 @@ fn App() -> Element {
         ]
     });
 
+    let durations = use_store(|| {
+        vec![
+            Stop::new(0.0, Duration::from_millis(0)),
+            Stop::new(1.0, Duration::from_millis(54321)),
+        ]
+    });
+
     let usizes = use_store(|| {
         vec![
             Stop::new(0.0, 2_usize),
@@ -39,9 +48,16 @@ fn App() -> Element {
 
     rsx! {
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-        div { class: "w-full flex flex-col m-4 border rounded",
+        div { class: "w-full flex flex-col gap-2 m-4 border rounded",
             Stops { stops: floats }
+
+            label { "durations" }
+            Stops { stops: durations }
+
+            label { "colors" }
             Stops { stops: colors }
+
+            label { "usizes" }
             Stops { stops: usizes }
         }
     }
