@@ -12,10 +12,10 @@ use itertools::Itertools;
 
 pub use stop_value::*;
 
-#[derive(new, Store, Clone, Copy)]
+#[derive(new, Debug, Store, Clone, Copy)]
 pub struct Stop<V> {
-    at: f32,
-    value: V,
+    pub at: f32,
+    pub value: V,
 }
 
 #[store]
@@ -45,7 +45,10 @@ impl<Lens, V: StopValue + 'static> Store<Vec<Stop<V>>, Lens> {
 }
 
 #[component]
-pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> Element {
+pub fn Stops<V: StopValue + Debug + 'static>(
+    mut stops: Store<Vec<Stop<V>>>,
+    #[props(default)] class: ReadSignal<String>,
+) -> Element {
     let mut size = use_signal(|| Vec2::new(200., 32.));
 
     let width = use_memo(move || size().x);
@@ -151,7 +154,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(mut stops: Store<Vec<Stop<V>>>) -> 
     });
 
     rsx! {
-        div { class: "flex flex-col gap-2 p-4",
+        div { class: "flex flex-col gap-2 {class}",
             svg {
                 view_box,
                 class: "w-full border rounded border-gray-400",

@@ -30,11 +30,11 @@
 }
 
 body {
-    @apply w-dvw h-svh flex;
+    @apply w-dvw h-dvh flex;
 }
 
 #main {
-    @apply w-full h-full flex;
+    @apply flex w-full h-full p-2;
 }
 
 label {

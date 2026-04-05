@@ -47,7 +47,6 @@ impl Default for CssBuildConfig {
 }
 
 pub fn css_build(tailwind: bool, bundle: bool) -> Result<CssBuilt, Error> {
-    debug!("hello {}", "world");
     // let out_dir = env::var("OUT_DIR")?;
     // let out_dir = PathBuf::from_str(&out_dir).unwrap(); // this is infallible
 

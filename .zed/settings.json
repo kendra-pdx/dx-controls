@@ -1,10 +1,34 @@
 {
   "languages": {
     "CSS": {
-      "language_servers": ["tailwindcss"],
+      "language_servers": ["tailwindcss-language-server", "color-lsp"],
+    },
+    "TOML": {
+      "formatter": {
+        "language_server": {
+          "name": "tombi",
+        },
+      },
+    },
+    "Rust": {
+      "language_servers": ["tailwindcss-language-server", "rust-analyzer"],
     },
   },
   "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "includeLanguages": {
+          "rust": "html",
+        },
+        "experimental": {
+          "classRegex": [
+            "class=\"([^\"]*)",
+            "class={\"([^\"}]*)",
+            "class=format!({\"([^\"}]*)",
+          ],
+        },
+      },
+    },
     "rust-analyzer": {
       "initialization_options": {
         "cargo": {

@@ -27,6 +27,7 @@ derive_more = { version = "2.1" }
 derive-new = { version = "0.7" }
 dioxus = { version = "0.7" }
 dioxus-free-icons = { version = "0.10", features = ["feather"] }
+either = { version = "1.15" }
 glam = { version = "0.32" }
 itertools = { version = "0.14" }
 lightningcss = { version = "1.0.0-alpha.71", default-features = false }
@@ -42,6 +43,7 @@ derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
 dx-gradient = { workspace = true }
 dx-primitives = { workspace = true }
+either = { workspace = true }
 glam = { workspace = true }
 itertools = { workspace = true }
 rand = { workspace = true }
