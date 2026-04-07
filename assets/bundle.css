@@ -8,6 +8,7 @@
       --tw-divide-x-reverse: 0;
       --tw-border-style: solid;
       --tw-font-weight: initial;
+      --tw-duration: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;
       --tw-shadow-alpha: 100%;
@@ -22,7 +23,6 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-duration: initial;
       --tw-rotate-x: initial;
       --tw-rotate-y: initial;
       --tw-rotate-z: initial;
@@ -51,7 +51,6 @@
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --color-dx-hover: var(--dx-hover);
-    --color-dx-active: var(--dx-active);
     --color-dx-destructive: var(--dx-destructive);
     --color-dx-surface1: var(--dx-surface1);
     --color-dx-on-surface1: var(--dx-on-surface1);
@@ -62,6 +61,7 @@
     --color-white: #fff;
     --text-xs: .75rem;
     --text-xs--line-height: calc(1 / .75);
+    --color-dx-active: var(--dx-active);
   }
 }
 
@@ -291,14 +291,6 @@
     }
   }
 
-  .inset-shadow-gray-500 {
-    --tw-inset-shadow-color: oklch(55.1% .027 264.364);
-
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-inset-shadow-color: color-mix(in oklab, var(--color-gray-500) var(--tw-inset-shadow-alpha), transparent);
-    }
-  }
-
   .group-hover\:flex {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -402,14 +394,6 @@
       border-inline-style: var(--tw-border-style);
       border-inline-start-width: calc(1px * var(--tw-divide-x-reverse));
       border-inline-end-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
-    }
-  }
-
-  .inset-shadow-gray-500 {
-    --tw-inset-shadow-color: oklch(55.1% .027 264.364);
-
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-inset-shadow-color: color-mix(in oklab, var(--color-gray-500) var(--tw-inset-shadow-alpha), transparent);
     }
   }
 
@@ -574,8 +558,8 @@
     cursor: pointer;
   }
 
-  .grid-rows-4 {
-    grid-template-rows: repeat(4, minmax(0, 1fr));
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .flex-col {
@@ -860,6 +844,11 @@
   inherits: false
 }
 
+@property --tw-duration {
+  syntax: "*";
+  inherits: false
+}
+
 @property --tw-shadow {
   syntax: "*";
   inherits: false;
@@ -937,11 +926,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-
-@property --tw-duration {
-  syntax: "*";
-  inherits: false
 }
 
 :root {

@@ -8,6 +8,7 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
     --color-red-100: oklch(93.6% 0.032 17.717);
+    --color-red-200: oklch(88.5% 0.062 18.334);
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
@@ -221,6 +222,12 @@
   .table {
     display: table;
   }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+  .h-20 {
+    height: calc(var(--spacing) * 20);
+  }
   .h-full {
     height: 100%;
   }
@@ -251,6 +258,9 @@
   .resize {
     resize: both;
   }
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .grid-rows-4 {
     grid-template-rows: repeat(4, minmax(0, 1fr));
   }
@@ -265,6 +275,9 @@
   }
   .items-center {
     align-items: center;
+  }
+  .justify-center {
+    justify-content: center;
   }
   .gap-1 {
     gap: calc(var(--spacing) * 1);
@@ -402,6 +415,12 @@
     --tw-inset-shadow-color: oklch(55.1% 0.027 264.364);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-inset-shadow-color: color-mix(in oklab, var(--color-gray-500) var(--tw-inset-shadow-alpha), transparent);
+    }
+  }
+  .inset-shadow-red-500 {
+    --tw-inset-shadow-color: oklch(63.7% 0.237 25.331);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-inset-shadow-color: color-mix(in oklab, var(--color-red-500) var(--tw-inset-shadow-alpha), transparent);
     }
   }
   .outline {

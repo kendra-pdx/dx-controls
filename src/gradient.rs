@@ -1,10 +1,11 @@
 use std::time::Duration;
 
-use bevy_color::Color;
 use dioxus::prelude::*;
 use rand::RngExt;
 
 use dx_gradient::{Stop, Stops};
+
+use crate::rand_color;
 #[component]
 pub fn Gradients() -> Element {
     let mut rng = rand::rng();
@@ -62,12 +63,4 @@ pub fn Gradients() -> Element {
             }
         }
     }
-}
-
-fn rand_color() -> Color {
-    let mut rng = rand::rng();
-    let h: f32 = rng.random::<f32>() * 360.0;
-    let s = rng.random_range(0.5..0.8);
-    let v = rng.random_range(0.5..0.8);
-    Color::hsv(h, s, v)
 }

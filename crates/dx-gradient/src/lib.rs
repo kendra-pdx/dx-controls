@@ -120,9 +120,12 @@ pub fn Stops<V: StopValue + Debug + 'static>(
         format!("background: {gradient}")
     });
 
-    let editor: Option<Element> = selected()
-        .and_then(|ix| stops.get(ix))
-        .map(|stop| stop.value()().edit(on_change));
+    let editor: Option<Element> = selected().and_then(|ix| stops.get(ix)).map(|stop| {
+        let stop_value = stop.value()();
+        stop_value.edit(on_change)
+    });
+
+    let editor_key = format!("{:?}", selected());
 
     let selected_removable = use_memo(move || {
         if let Some(ix) = selected() {
@@ -190,6 +193,7 @@ pub fn Stops<V: StopValue + Debug + 'static>(
                     .map(|editor| {
                         rsx! {
                             div { class: "flex flex-row items-center gap-2",
+                                key: "{editor_key}",
                                 div { class: "flex flex-row gap-1",
                                     if selected_removable() {
                                         IconButton {

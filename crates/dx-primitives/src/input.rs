@@ -1,6 +1,9 @@
+mod color;
 mod duration;
 
 use dioxus::prelude::*;
+
+pub use color::*;
 pub use duration::*;
 
 #[component]

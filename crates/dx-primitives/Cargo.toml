@@ -5,6 +5,7 @@ edition.workspace = true
 links = "dx_primitives_css"
 
 [dependencies]
+bevy_color = { workspace = true }
 bon = { workspace = true }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
