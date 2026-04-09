@@ -7,6 +7,7 @@ links = "dx_primitives_css"
 [dependencies]
 bevy_color = { workspace = true }
 bon = { workspace = true }
+derive_more = { workspace = true, features = ["deref"] }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
 dioxus-free-icons = { workspace = true }
