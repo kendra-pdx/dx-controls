@@ -283,14 +283,6 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .border-r-0 {
-    border-right-style: var(--tw-border-style);
-    border-right-width: 0px;
-  }
-  .border-l-0 {
-    border-left-style: var(--tw-border-style);
-    border-left-width: 0px;
-  }
   .border-black {
     border-color: var(--color-black);
   }
@@ -311,6 +303,9 @@
   }
   .border-white {
     border-color: var(--color-white);
+  }
+  .bg-dx-active {
+    background-color: var(--color-dx-active);
   }
   .bg-dx-surface1 {
     background-color: var(--color-dx-surface1);
@@ -371,6 +366,9 @@
   }
   .text-dx-on-surface1 {
     color: var(--color-dx-on-surface1);
+  }
+  .text-dx-surface1 {
+    color: var(--color-dx-surface1);
   }
   .text-red-500 {
     color: var(--color-red-500);

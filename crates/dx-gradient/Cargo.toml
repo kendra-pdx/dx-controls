@@ -5,13 +5,16 @@ edition.workspace = true
 links = "dx_gradient_css"
 
 [dependencies]
+dx-primitives = { workspace = true }
+spacial = { workspace = true }
+
 bevy_color = { workspace = true }
 derive-new = { workspace = true }
 dioxus = { workspace = true, features = [] }
 dioxus-free-icons = { workspace = true }
-dx-primitives = { workspace = true }
 glam = { workspace = true }
 itertools = { workspace = true }
+num-traits = { workspace = true }
 
 [build-dependencies]
 dx-css-build = { workspace = true }

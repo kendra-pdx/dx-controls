@@ -2,45 +2,6 @@ use std::time::Duration;
 
 use dioxus::prelude::*;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-struct DurationParts {
-    days: u64,
-    hours: u64,
-    minutes: u64,
-    seconds: u64,
-    millis: u64,
-}
-
-impl From<Duration> for DurationParts {
-    fn from(value: Duration) -> Self {
-        let total_millis = value.as_millis() as u64;
-        let days = total_millis / (24 * 60 * 60 * 1000);
-        let hours = (total_millis % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000);
-        let minutes = (total_millis % (60 * 60 * 1000)) / (60 * 1000);
-        let seconds = (total_millis % (60 * 1000)) / 1000;
-        let millis = total_millis % 1000;
-
-        DurationParts {
-            days,
-            hours,
-            minutes,
-            seconds,
-            millis,
-        }
-    }
-}
-
-impl From<DurationParts> for Duration {
-    fn from(value: DurationParts) -> Self {
-        let total_millis = value.days * 24 * 60 * 60 * 1000
-            + value.hours * 60 * 60 * 1000
-            + value.minutes * 60 * 1000
-            + value.seconds * 1000
-            + value.millis;
-
-        Duration::from_millis(total_millis as u64)
-    }
-}
 #[component]
 pub fn DurationInput(value: Duration, #[props(default)] onchange: Callback<Duration>) -> Element {
     let mut parts = DurationParts::from(value);
@@ -103,6 +64,46 @@ pub fn DurationInput(value: Duration, #[props(default)] onchange: Callback<Durat
                 input { class: "", type: "number", value: millis, min: 0, max: 1000, onchange: onchange_millis }
             }
         }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+struct DurationParts {
+    days: u64,
+    hours: u64,
+    minutes: u64,
+    seconds: u64,
+    millis: u64,
+}
+
+impl From<Duration> for DurationParts {
+    fn from(value: Duration) -> Self {
+        let total_millis = value.as_millis() as u64;
+        let days = total_millis / (24 * 60 * 60 * 1000);
+        let hours = (total_millis % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000);
+        let minutes = (total_millis % (60 * 60 * 1000)) / (60 * 1000);
+        let seconds = (total_millis % (60 * 1000)) / 1000;
+        let millis = total_millis % 1000;
+
+        DurationParts {
+            days,
+            hours,
+            minutes,
+            seconds,
+            millis,
+        }
+    }
+}
+
+impl From<DurationParts> for Duration {
+    fn from(value: DurationParts) -> Self {
+        let total_millis = value.days * 24 * 60 * 60 * 1000
+            + value.hours * 60 * 60 * 1000
+            + value.minutes * 60 * 1000
+            + value.seconds * 1000
+            + value.millis;
+
+        Duration::from_millis(total_millis as u64)
     }
 }
 

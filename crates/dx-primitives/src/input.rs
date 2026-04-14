@@ -1,10 +1,12 @@
 mod color;
 mod duration;
+mod xy;
 
 use dioxus::prelude::*;
 
 pub use color::*;
 pub use duration::*;
+pub use xy::*;
 
 #[component]
 pub fn FormField(label: ReadSignal<String>, children: Element) -> Element {

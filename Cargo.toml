@@ -16,6 +16,8 @@ version = "0.1.0"
 edition = "2024"
 
 [workspace.dependencies]
+spacial = { version = "0.4", registry = "kellnr" }
+
 dx-css-build = { path = "./crates/dx-css-build/" }
 dx-gradient = { path = "./crates/dx-gradient/" }
 dx-primitives = { path = "./crates/dx-primitives/" }
@@ -31,6 +33,7 @@ either = { version = "1.15" }
 glam = { version = "0.32" }
 itertools = { version = "0.14" }
 lightningcss = { version = "1.0.0-alpha.71", default-features = false }
+num-traits = { version = "0.2" }
 rand = { version = "0.10" }
 serde = { version = "1.0" }
 strum = { version = "0.28" }

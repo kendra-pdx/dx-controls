@@ -34,10 +34,11 @@ impl StopValue for f32 {
                 }
                 div { class: "flex grow",
                     input {
-                        r#type: "range",
-                        min: "0",
-                        max: "1",
-                        step: "0.01",
+                        type: "number",
+                        // r#type: "range",
+                        // min: "-1",
+                        // max: "1",
+                        // step: "0.01",
                         class: "mx-4 w-full",
                         value: self.to_string(),
                         onchange,
@@ -47,7 +48,14 @@ impl StopValue for f32 {
         }
     }
 
-    fn as_color(&self, _all: impl IntoIterator<Item = Self>) -> Color {
-        Color::srgb(*self, *self, *self)
+    fn as_color(&self, all: impl IntoIterator<Item = Self>) -> Color {
+        let (min, max) = all.into_iter().fold((*self, *self), |(min, max), x| {
+            let min = x.min(min);
+            let max = x.max(max);
+            (min, max)
+        });
+
+        let v = self / (max - min);
+        Color::srgb(v, v, v)
     }
 }

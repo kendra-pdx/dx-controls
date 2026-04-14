@@ -5,6 +5,7 @@ mod color;
 mod duration;
 mod f32;
 mod usize;
+mod xy;
 
 pub trait StopValue: Copy {
     fn new(left: Self, right: Self) -> Self;

@@ -46,7 +46,7 @@ pub fn ColorInput(
         div { class: "flex flex-col w-full", ..attributes,
             div { class: "flex flex-row gap-2 items-center",
                 EitherSelector { select: colorspace(), on_select_a: on_select_hsv, on_select_b: on_select_rgb }
-                input { class: "", type: "color", value: color_hex, onchange: on_color_change }
+                input { type: "color", value: color_hex, onchange: on_color_change }
             }
             div { class: "flex",
                 span { class: "text-xs", {color_desc} }

@@ -16,7 +16,7 @@ impl StopValue for usize {
 
         rsx! {
             div { class: "flex flex-row gap-2 h-full w-full place-items-center",
-                input { class: "border rounded border-black p-1 mx-4 w-full",
+                input { class: "border rounded border-black p-1 mx-4",
                     r#type: "number",
                     min: "0",
                     value: self.to_string(),
