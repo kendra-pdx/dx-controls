@@ -70,7 +70,7 @@ enum Style {
         font-bold inset-shadow-gray-500 inset-shadow-sm
 
         cursor-pointer transition-colors duration-250
-        bg-dx-surface1 text-dx-active
+        bg-dx-active text-dx-surface1
 
         hover:bg-dx-surface-hover hover:text-dx-hover
         hover:shadow-gray-500/50 hover:shadow-sm
