@@ -15,6 +15,7 @@ pub struct Icon<I: IconShape + PartialEq + Clone + 'static> {
 #[derive(new, Debug, PartialEq, Clone, Builder)]
 pub struct Text {
     class: Option<String>,
+    #[new(into)]
     text: String,
 }
 
