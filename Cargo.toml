@@ -23,12 +23,12 @@ publish = ["kellnr"]
 [workspace.dependencies]
 spacial = { version = "0.4", registry = "kellnr" }
 
-dx-css-build = { path = "./crates/dx-css-build/" }
-dx-gradient = { path = "./crates/dx-gradient/" }
-dx-graph = { path = "./crates/dx-graph/" }
-dx-markdown = { path = "./crates/dx-markdown/" }
-dx-primitives = { path = "./crates/dx-primitives/" }
-dx-web-animate = { path = "./crates/dx-web-animate/" }
+dx-css-build = { path = "./crates/dx-css-build/", version = "0.3" }
+dx-gradient = { path = "./crates/dx-gradient/", version = "0.3" }
+dx-graph = { path = "./crates/dx-graph/", version = "0.3" }
+dx-markdown = { path = "./crates/dx-markdown/", version = "0.3" }
+dx-primitives = { path = "./crates/dx-primitives/", version = "0.3" }
+dx-web-animate = { path = "./crates/dx-web-animate/", version = "0.3" }
 
 bevy_color = { version = "0.18" }
 bon = { version = "3.9" }
