@@ -16,19 +16,19 @@ members = [
 ]
 
 [workspace.package]
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 publish = ["kellnr"]
 
 [workspace.dependencies]
 spacial = { version = "0.4", registry = "kellnr" }
 
-dx-css-build = { path = "./crates/dx-css-build/", version = "0.3" }
-dx-gradient = { path = "./crates/dx-gradient/", version = "0.3" }
-dx-graph = { path = "./crates/dx-graph/", version = "0.3" }
-dx-markdown = { path = "./crates/dx-markdown/", version = "0.3" }
-dx-primitives = { path = "./crates/dx-primitives/", version = "0.3" }
-dx-web-animate = { path = "./crates/dx-web-animate/", version = "0.3" }
+dx-css-build = { path = "./crates/dx-css-build/", version = "0.3", registry = "kellnr" }
+dx-gradient = { path = "./crates/dx-gradient/", version = "0.3", registry = "kellnr" }
+dx-graph = { path = "./crates/dx-graph/", version = "0.3", registry = "kellnr" }
+dx-markdown = { path = "./crates/dx-markdown/", version = "0.3", registry = "kellnr" }
+dx-primitives = { path = "./crates/dx-primitives/", version = "0.3", registry = "kellnr" }
+dx-web-animate = { path = "./crates/dx-web-animate/", version = "0.3", registry = "kellnr" }
 
 bevy_color = { version = "0.18" }
 bon = { version = "3.9" }
