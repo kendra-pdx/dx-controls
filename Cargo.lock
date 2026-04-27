@@ -1772,7 +1772,7 @@ checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
 
 [[package]]
 name = "dx-controls"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "bevy_color",
  "derive-new",
@@ -1789,7 +1789,7 @@ dependencies = [
 
 [[package]]
 name = "dx-css-build"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "cargo-manifest",
  "derive-new",
@@ -1801,7 +1801,7 @@ dependencies = [
 
 [[package]]
 name = "dx-gradient"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "bevy_color",
  "derive-new",
@@ -1817,7 +1817,7 @@ dependencies = [
 
 [[package]]
 name = "dx-graph"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "criterion",
  "derive-new",
@@ -1832,7 +1832,7 @@ dependencies = [
 
 [[package]]
 name = "dx-markdown"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "dioxus",
  "markdown",
@@ -1840,7 +1840,7 @@ dependencies = [
 
 [[package]]
 name = "dx-primitives"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "bevy_color",
  "bon",
@@ -1857,7 +1857,7 @@ dependencies = [
 
 [[package]]
 name = "dx-web-animate"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "derive-new",
  "dioxus",
