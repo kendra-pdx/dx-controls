@@ -2,29 +2,38 @@
 name = "dx-controls"
 version.workspace = true
 edition.workspace = true
+publish = false
 
 [workspace]
 members = [
   ".",
   "crates/dx-css-build",
   "crates/dx-gradient",
-  "crates/dx-primitives"
+  "crates/dx-graph",
+  "crates/dx-markdown",
+  "crates/dx-primitives",
+  "crates/dx-web-animate"
 ]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
+publish = ["kellnr"]
 
 [workspace.dependencies]
 spacial = { version = "0.4", registry = "kellnr" }
 
 dx-css-build = { path = "./crates/dx-css-build/" }
 dx-gradient = { path = "./crates/dx-gradient/" }
+dx-graph = { path = "./crates/dx-graph/" }
+dx-markdown = { path = "./crates/dx-markdown/" }
 dx-primitives = { path = "./crates/dx-primitives/" }
+dx-web-animate = { path = "./crates/dx-web-animate/" }
 
 bevy_color = { version = "0.18" }
 bon = { version = "3.9" }
 cargo-manifest = { version = "0.20" }
+criterion = { version = "0.8", default-features = false }
 derive_more = { version = "2.1" }
 derive-new = { version = "0.7" }
 dioxus = { version = "0.7" }
@@ -33,11 +42,16 @@ either = { version = "1.15" }
 glam = { version = "0.32" }
 itertools = { version = "0.14" }
 lightningcss = { version = "1.0.0-alpha.71", default-features = false }
+markdown = "1.0"
 num-traits = { version = "0.2" }
+petgraph = "0.8"
 rand = { version = "0.10" }
 serde = { version = "1.0" }
 strum = { version = "0.28" }
 thiserror = { version = "2.0" }
+tracing = "0.1"
+wasm-bindgen = "0.2"
+web-sys = "0.3"
 which = { version = "8.0" }
 
 [dependencies]

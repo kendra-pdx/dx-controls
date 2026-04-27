@@ -3,6 +3,7 @@ name = "dx-primitives"
 version.workspace = true
 edition.workspace = true
 links = "dx_primitives_css"
+publish.workspace = true
 
 [dependencies]
 bevy_color = { workspace = true }

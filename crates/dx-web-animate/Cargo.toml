@@ -1,0 +1,11 @@
+[package]
+name = "dx-web-animate"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+derive-new = { workspace = true }
+dioxus = { workspace = true }
+wasm-bindgen = { workspace = true }
+web-sys = { workspace = true, features = ["Window"] }

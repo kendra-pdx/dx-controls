@@ -2,6 +2,7 @@
 name = "dx-css-build"
 version.workspace = true
 edition.workspace = true
+publish.workspace = true
 
 [[bin]]
 name = "dx-css-build-cli"

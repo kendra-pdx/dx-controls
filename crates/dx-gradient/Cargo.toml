@@ -3,6 +3,7 @@ name = "dx-gradient"
 version.workspace = true
 edition.workspace = true
 links = "dx_gradient_css"
+publish.workspace = true
 
 [dependencies]
 dx-primitives = { workspace = true }
