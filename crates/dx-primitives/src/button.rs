@@ -6,12 +6,14 @@ use dioxus::prelude::*;
 use dioxus_free_icons::{Icon, IconShape};
 use strum::EnumProperty;
 
+#[allow(clippy::redundant_field_names)]
 #[derive(new, Debug, Clone, Builder, PartialEq)]
 pub struct Icon<I: IconShape + PartialEq + Clone + 'static> {
     class: Option<String>,
     icon: I,
 }
 
+#[allow(clippy::redundant_field_names)]
 #[derive(new, Debug, PartialEq, Clone, Builder)]
 pub struct Text {
     class: Option<String>,

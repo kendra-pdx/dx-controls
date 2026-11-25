@@ -25,7 +25,7 @@ pub fn bundle(
     //     .chain(linked_css_sources())
     //     .for_each(|source| sources.push(source));
     linked_css_sources()
-        .chain(tailwind_css.into_iter())
+        .chain(tailwind_css)
         .for_each(|source| sources.push(source));
 
     if sources.is_empty() {
@@ -33,7 +33,7 @@ pub fn bundle(
     }
 
     let bundle_source = gen_bundle_source(out_dir, sources.into_iter())?;
-    let bundle_css = gen_bundle(&bundle_source, &out_dir)?;
+    let bundle_css = gen_bundle(&bundle_source, out_dir)?;
 
     debug!("bundle_css={}", bundle_css.to_string_lossy());
 
@@ -41,7 +41,7 @@ pub fn bundle(
 }
 
 fn linked_css_sources() -> impl Iterator<Item = PathBuf> {
-    env::vars().into_iter().filter_map(|(key, value)| {
+    env::vars().filter_map(|(key, value)| {
         if key.starts_with("DEP_") && key.ends_with("_BUNDLE_CSS") {
             debug!("Bundling dependency: {}", value);
             Some(PathBuf::from(value))
@@ -93,7 +93,7 @@ fn gen_bundle_source(
     for source in sources {
         bundle_source_writer
             .write_fmt(format_args!(r#"@import "{}";"#, source.to_string_lossy()))?;
-        bundle_source_writer.write(b"\n")?;
+        bundle_source_writer.write_all(b"\n")?;
     }
     Ok(bundle_source_path)
 }

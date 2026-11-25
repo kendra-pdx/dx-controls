@@ -20,7 +20,7 @@ pub fn ColorInput(
     });
 
     use_effect(move || {
-        let new_color = parse_hex_string(&*color_hex.read()).expect("must be able to parse color");
+        let new_color = parse_hex_string(&color_hex.read()).expect("must be able to parse color");
 
         match *colorspace.read() {
             Either::Left(_) => color.set(Hsva::from(new_color.to_srgba()).into()),

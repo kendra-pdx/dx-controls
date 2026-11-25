@@ -12,6 +12,7 @@ use itertools::Itertools;
 
 pub use stop_value::*;
 
+#[allow(clippy::redundant_field_names)]
 #[derive(new, Debug, Store, Clone, Copy)]
 pub struct Stop<V> {
     pub at: f32,
@@ -31,7 +32,6 @@ impl<Lens, V: StopValue + 'static> Store<Vec<Stop<V>>, Lens> {
     fn create_at(&mut self, at: f32) {
         let position = self.iter().find_position(|si| at < si.at()());
         if let Some((ix, _)) = position {
-            let ix = ix;
             info!(at, ix, "creating stop");
             assert!(ix > 0);
             assert!(ix < self.len());
@@ -100,9 +100,9 @@ pub fn Stops<V: StopValue + Debug + 'static>(
     let deselect = move |_| selected.set(None);
 
     let on_change = use_callback(move |v| {
-        selected().and_then(|ix| stops.get_mut(ix)).map(|mut stop| {
+        if let Some(mut stop) = selected().and_then(|ix| stops.get_mut(ix)) {
             stop.value = v;
-        });
+        }
     });
 
     let bg_style = use_memo(move || {

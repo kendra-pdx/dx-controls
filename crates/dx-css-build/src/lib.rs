@@ -20,6 +20,7 @@ macro_rules! debug {
     };
 }
 
+#[allow(clippy::redundant_field_names)]
 #[derive(Debug, new)]
 pub struct CssBuilt {
     pub tailwind_css: Option<PathBuf>,

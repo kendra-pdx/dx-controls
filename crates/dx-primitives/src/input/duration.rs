@@ -103,7 +103,7 @@ impl From<DurationParts> for Duration {
             + value.seconds * 1000
             + value.millis;
 
-        Duration::from_millis(total_millis as u64)
+        Duration::from_millis(total_millis)
     }
 }
 
